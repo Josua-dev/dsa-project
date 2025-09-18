@@ -1,0 +1,16 @@
+[package]
+org = "gertz"
+name = "car_rental_system"
+version = "0.1.0"
+distribution = "2201.12.7"
+
+[build-options]
+observabilityIncluded = true
+
+[project]
+org-name = "chamelda"
+version = "0.1.0"
+module-name = "stubs"
+
+
+
