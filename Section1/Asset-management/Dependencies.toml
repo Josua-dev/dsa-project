@@ -108,9 +108,6 @@ dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
 ]
-modules = [
-	{org = "ballerina", packageName = "io", moduleName = "io"}
-]
 
 [[package]]
 org = "ballerina"
@@ -275,6 +272,9 @@ version = "2.7.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"}
 ]
+modules = [
+	{org = "ballerina", packageName = "time", moduleName = "time"}
+]
 
 [[package]]
 org = "ballerina"
@@ -308,15 +308,15 @@ modules = [
 ]
 
 [[package]]
-org = "dsa612s"
-name = "asset_management_client"
+org = "linekela_hashikuni"
+name = "Asset_management"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
-	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "time"},
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "dsa612s", packageName = "asset_management_client", moduleName = "asset_management_client"}
+	{org = "linekela_hashikuni", packageName = "Asset_management", moduleName = "Asset_management"}
 ]
 
