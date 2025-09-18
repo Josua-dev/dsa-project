@@ -42,7 +42,7 @@ map<Asset> assetStore = {};
 service /assets on new http:Listener(9090) {
 
     // GET all assets
-    resource function get allAssets() returns Asset[] {
+    resource function get allAssets() returns Asset[]| error {
         Asset[] all = [];
         foreach var key in assetStore.keys() {
             Asset? maybe = assetStore[key];
@@ -54,7 +54,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // GET assets by faculty
-    resource function get byFaculty/[string faculty]() returns Asset[] {
+    resource function get byFaculty/[string faculty]() returns Asset[]| error {
         Asset[] result = [];
         foreach var entry in assetStore.entries() {
             var [_, a] = entry;
@@ -66,7 +66,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // POST add asset
-    resource function post addAsset(@http:Payload Asset newAsset) returns json {
+    resource function post addAsset(@http:Payload Asset newAsset) returns json| error {
         if assetStore.hasKey(newAsset.assetTag) {
             return { status: "error", message: "Asset already exists", assetTag: newAsset.assetTag };
         }
@@ -75,7 +75,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // PUT update asset
-    resource function put update/[string assetTag](@http:Payload Asset updatedAsset) returns json {
+    resource function put update/[string assetTag](@http:Payload Asset updatedAsset) returns json| error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -84,7 +84,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // DELETE asset
-    resource function delete remove/[string assetTag]() returns json {
+    resource function delete remove/[string assetTag]() returns json| error {
         if assetStore.hasKey(assetTag) {
             _ = assetStore.remove(assetTag);
             return { status: "success", message: "Asset deleted", assetTag: assetTag };
@@ -93,12 +93,12 @@ service /assets on new http:Listener(9090) {
     }
 
     // GET asset count
-    resource function get count() returns json {
+    resource function get count() returns json | error{
         return { status: "success", totalAssets: assetStore.length() };
     }
 
     // GET overdue schedules
-    resource function get overdue() returns Asset[] {
+    resource function get overdue() returns Asset[] | error {
         Asset[] overdueAssets = [];
         string today = time:utcNow().toString().substring(0, 10); // YYYY-MM-DD
         foreach var entry in assetStore.entries() {
@@ -119,7 +119,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // POST add component
-    resource function post addComponent/[string assetTag](@http:Payload Component comp) returns json {
+    resource function post addComponent/[string assetTag](@http:Payload Component comp) returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -128,7 +128,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // DELETE component
-    resource function delete removeComponent/[string assetTag]/[string compName]() returns json {
+    resource function delete removeComponent/[string assetTag]/[string compName]() returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -140,7 +140,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // POST add schedule
-    resource function post addSchedule/[string assetTag](@http:Payload Schedule sched) returns json {
+    resource function post addSchedule/[string assetTag](@http:Payload Schedule sched) returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -149,7 +149,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // DELETE schedule
-    resource function delete removeSchedule/[string assetTag]/[string schedName]() returns json {
+    resource function delete removeSchedule/[string assetTag]/[string schedName]() returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -161,7 +161,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // POST add work order
-    resource function post addWorkOrder/[string assetTag](@http:Payload WorkOrder wo) returns json {
+    resource function post addWorkOrder/[string assetTag](@http:Payload WorkOrder wo) returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
@@ -170,7 +170,7 @@ service /assets on new http:Listener(9090) {
     }
 
     // DELETE work order
-    resource function delete removeWorkOrder/[string assetTag]/[string woDesc]() returns json {
+    resource function delete removeWorkOrder/[string assetTag]/[string woDesc]() returns json | error {
         if !assetStore.hasKey(assetTag) {
             return { status: "error", message: "Asset not found", assetTag: assetTag };
         }
