@@ -240,4 +240,5 @@ service /assets on httpListener {
         log:printInfo("Task removed: " + taskId);
         return http:OK;
     }
+
 }
