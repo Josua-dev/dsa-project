@@ -334,4 +334,5 @@ public function main() returns error? {
     io:println("curl http://localhost:8080/assets/overdue");
     
     printSeparator("End of Tests");
+
 }
