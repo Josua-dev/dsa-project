@@ -1,0 +1,8 @@
+[package]
+org = "sean"
+name = "q1_assets_api"
+version = "0.1.0"
+distribution = "2201.12.9"
+
+[build-options]
+observabilityIncluded = true
